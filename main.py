@@ -15,6 +15,8 @@ def receive_data():
     data = request.get_json() # 获取POST请求中的JSON数据
     content_value = data['content'] + ' #交易记录' # 解析JSON数据并获取内容，并在末尾添加文本
 
+    open_api = os.environ.get('open_api')
+    
     url = f'{open_api}' 
 
     # 将内容发送到 memos
