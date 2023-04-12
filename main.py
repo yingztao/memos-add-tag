@@ -4,7 +4,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-API_KEY = 'your_api_key' # 用于验证的 API key
+API_KEY = os.environ.get('api_key') # 用于验证的 API key
 
 @app.route('/', methods=['POST'])
 def receive_data():
