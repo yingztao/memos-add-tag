@@ -12,11 +12,12 @@ def receive_data():
     if api_key != API_KEY: 
         return 'Unauthorized', 401  # 如果 API key 不正确，返回 401 Unauthorized
 
-    data = request.get_json()
-    content_value = data['content'] + ' #交易记录'
+    data = request.get_json() # 获取POST请求中的JSON数据
+    content_value = data['content'] + ' #交易记录' # 解析JSON数据并获取内容，并在末尾添加文本
 
-    url = f'https://memos.yingz.cc:1121/api/memo?openId={api_key}'
+    url = f'{open_api}' 
 
+    # 将内容发送到 memos
     headers = {'Content-Type': 'application/json'}
     payload = {'content': content_value}
     response = requests.post(url, headers=headers, json=payload)
@@ -26,4 +27,5 @@ def receive_data():
     return '' 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=5000)
